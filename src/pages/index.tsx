@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import CartModal from "../components/CartModal";
 import { Header } from "../components/Header";
 import ListOfProduct from "../components/ListOfProduct";
 
@@ -15,6 +16,8 @@ const Home: NextPage = () => {
       <main>
         <ListOfProduct />
       </main>
+
+      <CartModal />
 
       <footer>
         <span>MKS sistemas © Todos os direitos reservados</span>

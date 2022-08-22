@@ -56,4 +56,32 @@ export default createGlobalStyle`
     font-weight: 400;
   }
 
+  .react-modal-overlay{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    margin-right: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.5);
+    @media (max-width: 576px) {
+      align-items: flex-end;
+    }
+  }
+  .react-modal-content{
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    margin-right:0;
+    position: absolute;
+    width: 100%;
+    max-width: 576px;
+    background-color: var(--primary-color);
+  }
+
 `;

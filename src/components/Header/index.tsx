@@ -1,12 +1,15 @@
-import { Container } from "./styles";
-import Image from "next/image";
-import IconCard from "../../../public/card.svg";
-import CartModal from "../CartModal";
 import React from "react";
+import Image from "next/image";
+
+import IconCard from "../../../public/card.svg";
+import { Container } from "./styles";
+
 import { ContextApi } from "../../Context/ContextApi";
+import { useAppSelector } from "../../store/hooks";
 
 export function Header() {
-  const { isOpen, closeModal, openModal } = React.useContext(ContextApi);
+  const { openModal } = React.useContext(ContextApi);
+  const state = useAppSelector(state => state.cart.value);
 
   return (
     <Container>
@@ -17,7 +20,7 @@ export function Header() {
         </strong>
         <button type="button" onClick={openModal}>
           <Image src={IconCard} height="20" width="20" />
-          <span>0</span>
+          <span>{state}</span>
         </button>
       </div>
     </Container>

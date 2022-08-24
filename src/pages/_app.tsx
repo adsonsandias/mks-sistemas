@@ -1,14 +1,18 @@
 import type { AppProps } from "next/app";
+import { Provider } from "react-redux";
 import { ContextApiService } from "../Context/ContextApi";
+import store from "../store/store";
 import GlobalStyle from "../styles/global";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ContextApiService>
-        <Component {...pageProps} />
-        <GlobalStyle />
-      </ContextApiService>
+      <Provider store={store}>
+        <ContextApiService>
+          <Component {...pageProps} />
+          <GlobalStyle />
+        </ContextApiService>
+      </Provider>
     </>
   );
 }

@@ -1,17 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+// import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  name: string;
-};
+// type Data = {
+//   name: string;
+// };
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  console.log(req.query);
+// export default function handler(
+//   req: NextApiRequest,
+//   res: NextApiResponse<Data>
+// ) {
+//   console.log(req.query);
 
-  res
-    .status(200)
-    .json({ name: "https://mks-frontend-challenge-api.herokuapp.com/api/v1" });
-}
+//   res
+//     .status(200)
+//     .json({ name: "https://mks-frontend-challenge-api.herokuapp.com/api/v1" });
+// }

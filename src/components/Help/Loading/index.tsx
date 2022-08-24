@@ -3,7 +3,11 @@ import { LoadingContainer } from "./styles";
 export function Loading() {
   return (
     <LoadingContainer>
-      <h1>Carregando...</h1>
+      <ul>
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+          <li key={i}></li>
+        ))}
+      </ul>
     </LoadingContainer>
   );
 }

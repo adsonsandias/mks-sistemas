@@ -11,6 +11,19 @@ export const ItemSelectedStyled = styled.div`
   padding: 1.25rem 1.5rem;
   border-radius: 0.5rem;
   position: relative;
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+  @media (max-width: 530px) {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  @media (max-width: 440px) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 
   div:first-child {
     display: flex;
@@ -26,24 +39,35 @@ export const ItemSelectedStyled = styled.div`
       font-size: 0.88rem;
       font-weight: 400;
       width: 10ch;
+      @media (max-width: 680px) {
+        width: 14ch;
+      }
     }
   }
 
   div:nth-child(2) {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     span:first-child {
       grid-area: -2/1;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 0.88rem;
+      @media (max-width: 680px) {
+        display: none;
+      }
     }
 
     div {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (max-width: 680px) {
+        grid-area: span 2;
+      }
     }
 
     & > span:last-child {
@@ -101,6 +125,7 @@ export const IncrementItem = styled.div`
   }
 
   span:first-child {
+    display: flex !important;
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     border-top: 1px solid #ededed;

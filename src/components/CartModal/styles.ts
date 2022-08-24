@@ -6,6 +6,9 @@ export const Contents = styled.form`
   height: calc(100vh - 16rem);
   padding-top: 2rem;
   padding-bottom: 10rem;
+  @media (max-width: 440px) {
+    padding-top: 1rem;
+  }
 `;
 
 export const Navigation = styled.div`
@@ -16,6 +19,14 @@ export const Navigation = styled.div`
   margin-right: 2.94rem;
   margin-top: 2.25rem;
   margin-bottom: 2.38rem;
+  @media (max-width: 530px) {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  @media (max-width: 440px) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 
   h2 {
     font-size: 1.69rem;

@@ -1,16 +1,27 @@
 import React from "react";
 import Modal from "react-modal";
 import { ContextApi } from "../../Context/ContextApi";
+import { getTotals } from "../../store/addcart";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { ItemSelected } from "./itemCart";
 import { ButtonFinish, Contents, Navigation, SalesOrder } from "./styles";
 
-import { ItemSelected } from "./itemCart";
-
 export default function CartModal() {
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(state => state.addcart.cartItem);
+  const cartTotalAmount = useAppSelector(
+    state => state.addcart.cartTotalAmount
+  );
+
   const { isOpen, closeModal } = React.useContext(ContextApi);
 
   function handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
   }
+
+  React.useEffect(() => {
+    dispatch(getTotals());
+  }, [cartItems]);
 
   return (
     <>
@@ -31,12 +42,17 @@ export default function CartModal() {
         </Navigation>
 
         <Contents onSubmit={handleSubmit}>
-          <ItemSelected />
+          {cartItems &&
+            cartItems.map(item => (
+              <>
+                <ItemSelected item={item} />
 
-          <SalesOrder>
-            <strong>Total</strong>
-            <strong>R$ 798</strong>
-          </SalesOrder>
+                <SalesOrder>
+                  <strong>Total</strong>
+                  <strong>{cartTotalAmount}</strong>
+                </SalesOrder>
+              </>
+            ))}
 
           <ButtonFinish type="submit">Finalizar Compra</ButtonFinish>
         </Contents>

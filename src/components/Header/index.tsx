@@ -9,7 +9,7 @@ import { useAppSelector } from "../../store/hooks";
 
 export function Header() {
   const { openModal } = React.useContext(ContextApi);
-  const state = useAppSelector(state => state.cart.value);
+  const { cartTotalQuantity } = useAppSelector(state => state.addcart);
 
   return (
     <Container>
@@ -20,7 +20,7 @@ export function Header() {
         </strong>
         <button type="button" onClick={openModal}>
           <Image src={IconCard} height="20" width="20" />
-          <span>{state}</span>
+          <span>{cartTotalQuantity}</span>
         </button>
       </div>
     </Container>

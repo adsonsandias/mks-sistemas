@@ -83,6 +83,16 @@ export default createGlobalStyle`
     width: 100%;
     max-width: 576px;
     background-color: var(--primary-color);
+    @media (max-width: 680px) {
+      max-width: 440px;
+    }
+    @media (max-width: 530px) {
+      max-width: 350px;
+    }
+    @media (max-width: 440px) {
+      max-width: 300px;
+    }
+    
   }
 
 `;

@@ -4,6 +4,8 @@ import CartModal from "../components/CartModal";
 import { Header } from "../components/Header";
 import ListOfProduct from "../components/ListOfProduct";
 
+import "react-toastify/dist/ReactToastify.css";
+
 const Home: NextPage = () => {
   return (
     <div>

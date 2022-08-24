@@ -32,11 +32,7 @@ const initialState = {
 const dataSlice = createSlice({
   name: "database",
   initialState,
-  reducers: {
-    loading(state, action: PayloadAction<boolean>) {
-      state.loading = action.payload;
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchProducts.pending, (state: DataState) => {
       state.loading = true;
@@ -46,7 +42,10 @@ const dataSlice = createSlice({
       fetchProducts.fulfilled,
       (state: DataState, action: PayloadAction<[]>) => {
         state.loading = false;
-        state.data = action.payload;
+        if (action.payload.length > 0) {
+          localStorage.setItem("database", JSON.stringify(action.payload));
+          state.data = action.payload;
+        }
         state.error = "";
       }
     );

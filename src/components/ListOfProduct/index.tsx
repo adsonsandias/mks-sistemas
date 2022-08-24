@@ -1,28 +1,22 @@
 import React from "react";
+import { Container } from "./styles";
+import { IITEMPRODUCTPROPS } from "../../types/globolTypes";
 
 import { fetchProducts } from "../../store/database";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Loading } from "../Help/Loading";
-import Product from "../Product";
-import { Container } from "./styles";
 
-export interface IRESULT {
-  id: number;
-  brand: string;
-  createdAt: string;
-  description: string;
-  name: string;
-  photo: string;
-  price: string;
-  updatedAt: string | number;
-}
+import Product from "../Product";
+import { Loading } from "../Help/Loading";
+import { getTotals } from "../../store/addcart";
 
 export default function ListOfProduct() {
   const { data, loading, error } = useAppSelector(state => state.database);
+
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(getTotals());
   }, []);
 
   if (error) return null;
@@ -31,18 +25,8 @@ export default function ListOfProduct() {
     <Container>
       <ul>
         {data &&
-          data.map((item: IRESULT) => (
-            <Product
-              key={item.id}
-              brand={item.brand}
-              name={item.name}
-              description={item.description}
-              id={item.id}
-              createdAt={item.createdAt}
-              photo={item.photo}
-              price={item.price}
-              updatedAt={item.updatedAt}
-            />
+          data.map((item: IITEMPRODUCTPROPS) => (
+            <Product key={item.id} item={item} />
           ))}
       </ul>
     </Container>

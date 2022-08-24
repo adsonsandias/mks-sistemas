@@ -1,80 +1,61 @@
 import React from "react";
 
-import { IRESULT } from "../../ListOfProduct";
-
 import { IncrementItem, ItemSelectedStyled } from "./styles";
-import { decrement, increment } from "../../../store/contador";
-import { useAppSelector, useAppDispatch } from "../../../store/hooks";
-import { removeSelected, useSelected } from "../../../store/selected";
-import { useSelector } from "react-redux";
-import { removeCartCount } from "../../../store/cart";
-import { addCartCountUnit } from "../../../store/filter";
 
-export function ItemSelected() {
-  const [itemRemove, setItemRemove] = React.useState("");
-  const [addUnitItem, setAddUnitItem] = React.useState("");
+import { useAppDispatch } from "../../../store/hooks";
+import {
+  addCartItem,
+  decreaseCartItem,
+  removeCartItem
+} from "../../../store/addcart";
+import { IITEMPRODUCTPROPS } from "../../../types/globolTypes";
 
-  const state = useAppSelector(state => state.filter.count);
+export function ItemSelected({ ...props }) {
+  const { item } = props;
   const dispatch = useAppDispatch();
 
-  const { data } = useAppSelector(state => state.database);
-  const selected = useSelector(useSelected);
+  function handleRemoveCartItem(item: IITEMPRODUCTPROPS) {
+    dispatch(removeCartItem(item));
+  }
 
-  const itemSelectedGroup = selected.map(item => {
-    const itemSelected = data.filter((selector: IRESULT) =>
-      selector.name.includes(item.produto)
-    );
-    return itemSelected;
-  });
+  function handledecreaseCartItem(item: IITEMPRODUCTPROPS) {
+    dispatch(decreaseCartItem(item));
+  }
 
-  React.useEffect(() => {
-    if (itemRemove.length > 0) {
-      const handleRemoveItem = (): void => {
-        dispatch(removeSelected(itemRemove));
-        dispatch(removeCartCount());
-      };
-      handleRemoveItem();
-    }
-  }, [itemRemove]);
-
-  function handledClick(event: any) {
-    event.preventDefault();
-    dispatch(addCartCountUnit(event.target.id));
+  function handleIncrementCartItem(item: IITEMPRODUCTPROPS) {
+    dispatch(addCartItem(item));
   }
 
   return (
     <>
-      {itemSelectedGroup.map(itemFilter => itemFilter[0]) &&
-        itemSelectedGroup
-          .map(itemFilter => itemFilter[0])
-          .map((item: IRESULT) => (
-            <ItemSelectedStyled key={item.id}>
-              <div>
-                <img src={item.photo} alt={item.name} />
-                <span>{item.name}</span>
-              </div>
-              <div>
-                <span>Qtd:</span>
-                <IncrementItem>
-                  <span onClick={() => dispatch(decrement())}>-</span>
-                  <span>{state}</span>
-                  <span id={item.name} onClick={handledClick}>
-                    +
-                  </span>
-                </IncrementItem>
-                <span>
-                  {item.price &&
-                    new Intl.NumberFormat("pt-BR", {
-                      style: "currency",
-                      currency: "BRL"
-                    }).format(Number(item.price))}
-                </span>
-              </div>
-              <button onClick={() => setItemRemove(item.name)}>
-                <span>x</span>
-              </button>
-            </ItemSelectedStyled>
-          ))}
+      <ItemSelectedStyled key={item.id}>
+        <div>
+          <img src={item.photo} alt={item.name} />
+          <span>{item.name}</span>
+        </div>
+        <div>
+          <span>Qtd:</span>
+          <IncrementItem>
+            <span id={item.name} onClick={() => handledecreaseCartItem(item)}>
+              -
+            </span>
+            <span>{item.cartQuantity}</span>
+            <span id={item.name} onClick={() => handleIncrementCartItem(item)}>
+              +
+            </span>
+          </IncrementItem>
+          <span>
+            {Number(item.price) * item.cartQuantity &&
+              new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(Number(Number(item.price) * item.cartQuantity))}
+          </span>
+        </div>
+        <button onClick={() => handleRemoveCartItem(item)}>
+          <span>x</span>
+        </button>
+      </ItemSelectedStyled>
     </>
   );
 }

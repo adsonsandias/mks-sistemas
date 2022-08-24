@@ -1,4 +1,7 @@
 import React from "react";
+
+import { fetchProducts } from "../../store/database";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Loading } from "../Help/Loading";
 import Product from "../Product";
 import { Container } from "./styles";
@@ -15,32 +18,20 @@ export interface IRESULT {
 }
 
 export default function ListOfProduct() {
-  const [data, setData] = React.useState<IRESULT[]>([]);
-  const [loading, setLoading] = React.useState(false);
+  const { data, loading, error } = useAppSelector(state => state.database);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    async function fetchData() {
-      // Loading initial
-      setLoading(true);
-      // fetchData
-      const data = await fetch(
-        "https://mks-frontend-challenge-api.herokuapp.com/api/v1/products?page=1&rows=8&sortBy=id&orderBy=DESC"
-      );
-      const { count, products } = await data.json();
-      // Data
-      setData(products);
-      // Loading
-      setLoading(false);
-    }
-    fetchData();
+    dispatch(fetchProducts());
   }, []);
 
+  if (error) return null;
   if (loading) return <Loading />;
   return (
     <Container>
       <ul>
         {data &&
-          data.map(item => (
+          data.map((item: IRESULT) => (
             <Product
               key={item.id}
               brand={item.brand}

@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+  
   :root {
     --background: #f9f9f9;
     --primary-color: #0f52ba;

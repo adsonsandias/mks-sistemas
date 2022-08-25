@@ -20,11 +20,11 @@ interface CounterState {
   cartTotalQuantity: number;
 }
 
-const initialState = {
+const initialState: CounterState = {
   cartItem: [],
   cartTotalAmount: 0,
   cartTotalQuantity: 0
-} as unknown as CounterState;
+};
 
 export const addcartSlice = createSlice({
   name: "addcart",
@@ -52,7 +52,7 @@ export const addcartSlice = createSlice({
 
       localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
     },
-    removeCartItem: (state, action) => {
+    removeCartItem: (state: CounterState, action) => {
       const nextCartItems = state.cartItem.filter(
         cartItem => cartItem.id !== action.payload.id
       );

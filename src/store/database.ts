@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
 import { API_PRODUCTS } from "../services/Api";
 
 export const fetchProducts = createAsyncThunk(
@@ -17,7 +18,7 @@ export const fetchProducts = createAsyncThunk(
 );
 
 interface DataState {
-  database: any;
+  database: unknown;
   loading: boolean;
   data: [];
   error: string | undefined;

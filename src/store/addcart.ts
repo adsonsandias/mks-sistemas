@@ -1,21 +1,19 @@
+/* eslint-disable prefer-const */
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 interface CounterState {
-  addcart: any;
-  cartItem: [
-    {
-      cartQuantity: number;
-      id: number;
-      brand: string;
-      createdAt?: string;
-      description: string;
-      name: string;
-      photo: string;
-      price: string;
-      updatedAt?: string | number;
-    }
-  ];
+  cartItem: {
+    cartQuantity: number;
+    id: number;
+    brand: string;
+    createdAt: string;
+    description: string;
+    name: string;
+    photo: string;
+    price: string;
+    updatedAt: string;
+  }[];
   cartTotalAmount: number;
   cartTotalQuantity: number;
 }
